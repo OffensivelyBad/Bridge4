@@ -10,6 +10,7 @@ class LoginForm extends Component {
                 <CardSection>
                     <View style={styles.buttonContainerStyle}>
                         <Image
+                            style={styles.buttonContainerStyle}
                             source={require('../images/B4SLogo.png')}
                             size={{ width: 400, height: 200 }}
                         />
@@ -44,9 +45,15 @@ class LoginForm extends Component {
 
 const styles = {
     buttonContainerStyle: {
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: 300,
+        height: 100
+    },
+    imageStyle: {
+        aspectRatio: 1
     }
 };
 
