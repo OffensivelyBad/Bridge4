@@ -19,12 +19,14 @@ const styles = {
         alignSelf: 'stretch',
         backgroundColor: '#4a90e2',
         borderRadius: 5,
-        marginLeft: 5,
-        marginRight: 5,
+        marginLeft: 10,
+        marginRight: 10,
         shadowColor: '#000',
         shadowOffset: { width: 1, height: 2 },
         shadowOpacity: 0.25,
-        shadowRadius: 2
+        shadowRadius: 2,
+        height: 50,
+        justifyContent: 'center'
     },
     textStyle: {
         alignSelf: 'center',

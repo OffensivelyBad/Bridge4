@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
-import { View, Text } from 'react-native';
 import firebase from 'firebase';
-import QRCodeScanner from 'react-native-qrcode-scanner';
 import firebaseconfig from './config/firebaseconfig';
-// import reducers from './reducers';
-import LoginForm from './components/LoginForm'
+import reducers from './reducers';
+import Router from './Router';
 
 
 
@@ -24,8 +22,11 @@ class App extends Component {
     }
 
     render() {
+        const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
         return (
-            <LoginForm />
+            <Provider store={store}>
+                <Router />
+            </Provider>
         );
     }
 }

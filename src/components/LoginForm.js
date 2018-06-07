@@ -1,8 +1,40 @@
 import React, { Component } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Image, View } from 'react-native';
+import { connect } from 'react-redux';
+import { emailChanged, passwordChanged, loginUser } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
 class LoginForm extends Component {
+
+    onButtonPress() {
+        const { email, password } = this.props;
+        this.props.loginUser({ email, password });
+    }
+
+    renderError() {
+        if (this.props.error) {
+            return (
+                <View style={{ backgroundColor: 'white' }}>
+                    <Text style={styles.errorTextStyle}>
+                        {this.props.error}
+                    </Text>
+                </View>
+            );
+        }
+    }
+
+    renderButton() {
+        if (this.props.loading) {
+            return <Spinner size="large" />;
+        }
+        else {
+            return (
+                <Button onPress={this.onButtonPress.bind(this)}>
+                    Login
+                </Button>
+            );
+        }
+    }
 
     render() {
         return (
@@ -10,7 +42,6 @@ class LoginForm extends Component {
                 <CardSection>
                     <View style={styles.buttonContainerStyle}>
                         <Image
-                            style={styles.buttonContainerStyle}
                             source={require('../images/B4SLogo.png')}
                             size={{ width: 400, height: 200 }}
                         />
@@ -22,6 +53,8 @@ class LoginForm extends Component {
                         placeholder='email@email.com'
                         autoCorrect={false}
                         autoCapitalize={"none"}
+                        onChangeText={value => this.props.emailChanged(value) }
+                        value={this.props.email}
                     />
                 </CardSection>
 
@@ -29,13 +62,15 @@ class LoginForm extends Component {
                     <Input
                         placeholder='password'
                         secureTextEntry={true}
+                        onChangeText={value => this.props.passwordChanged(value) }
+                        value={this.props.password}
                     />
                 </CardSection>
 
+                {this.renderError()}
+
                 <CardSection>
-                    <Button>
-                        Login
-                    </Button>
+                    {this.renderButton()}
                 </CardSection>
             </Card>
         );
@@ -46,15 +81,22 @@ class LoginForm extends Component {
 const styles = {
     buttonContainerStyle: {
         flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 300,
-        height: 100
+        alignItems: 'center'
     },
-    imageStyle: {
-        aspectRatio: 1
+    errorTextStyle: {
+        fontSize: 20,
+        alignSelf: 'center',
+        color: 'red'
     }
 };
 
-export default LoginForm;
+const mapStateToProps = state => {
+    return {
+        email: state.auth.email,
+        password: state.auth.password,
+        loading: state.auth.loading,
+        error: state.auth.error
+    };
+};
+
+export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser})(LoginForm);
