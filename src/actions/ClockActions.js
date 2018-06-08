@@ -1,17 +1,17 @@
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
-import { DID_CLOCK } from './types';
+import { CLOCK_IN, CLOCK_OUT } from './types';
 
-export const clockedIn = () => {
+export const clockedIn = ({ user, timestamp }) => {
     return {
-        type: DID_CLOCK,
-        payload: true
+        type: CLOCK_IN,
+        payload: { user, timestamp }
     }
 }
 
-export const clockedOut = () => {
+export const clockedOut = ({ user, timestamp }) => {
     return {
-        type: DID_CLOCK,
-        payload: false
+        type: CLOCK_OUT,
+        payload: { user, timestamp }
     }
 }

@@ -1,5 +1,6 @@
 import {
-    DID_CLOCK
+    CLOCK_IN,
+    CLOCK_OUT
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -7,11 +8,12 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-    console.log(action)
 
     switch (action.type) {
-        case DID_CLOCK:
-            return { ...state, isClockedIn: action.payload }
+        case CLOCK_IN:
+            return { ...state, isClockedIn: true }
+        case CLOCK_OUT:
+            return { ...state, isClockedIn: false }
         default:
             return state;
     }
