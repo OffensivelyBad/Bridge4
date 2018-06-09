@@ -8,7 +8,6 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-
     switch (action.type) {
         case CLOCK_IN:
             return { ...state, isClockedIn: true }

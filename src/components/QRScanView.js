@@ -5,8 +5,12 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import { clockedIn, clockedOut } from '../actions';
 import { Button } from './common';
 
+const testing = false;
+
 class QRScanView extends Component {
+
     onQRRead(timestamp) {
+        console.log(timestamp);
         if(this.props.isClockedIn) {
             this.props.clockedOut({ user: this.props.user, timestamp: timestamp });
         }
@@ -15,34 +19,19 @@ class QRScanView extends Component {
         }
     }
 
-    renderText(timestamp) {
-        var isClocked = '';
-        if(this.props.isClockedIn) {
-             isClocked = 'YES!@#@#$#';
+    renderTestButton() {
+        if(testing) {
+            return (
+                <Button onPress={() => this.onQRRead('2018-06-08 12:35:23:0000')}>testing123</Button>
+            );
         }
-        else {
-            isClocked = 'NO@#$#@$#$';
-        }
-        return (
-            <View>
-                <Text style={{ color: 'white' }}>timestamp</Text>
-                <Text style={{ color: 'white' }}>isClocked</Text>
-            </View>
-        );
     }
 
     render() {
         return (
             <View>
-            <QRCodeScanner 
-                onRead={this.onQRRead.bind(this)}
-                bottomContent={
-                    <Text style={{ color: 'white' }}>
-                        Go to wikipedia.org/wiki/QR_code on your computer and scan the QR code.
-                    </Text>
-                    }
-            />
-            <Button onPress={this.onQRRead.bind('test123')}>testing123</Button>
+                <QRCodeScanner onRead={this.onQRRead.bind(this)}/>
+                {this.renderTestButton()}
             </View>
         );
     }
