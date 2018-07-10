@@ -5,3 +5,4 @@ export const LOGIN_USER_FAIL = 'login_user_fail';
 export const LOGIN_USER = 'login_user';
 export const CLOCK_IN = 'clock_in';
 export const CLOCK_OUT = 'clock_out';
+export const LOGOUT_USER = 'logout_user';

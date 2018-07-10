@@ -10,9 +10,9 @@ class HomeView extends Component {
     }
 
     render() {
-        const { buttonContainerStyle, welcomeTextStyle } = styles;
+        const { buttonContainerStyle, welcomeTextStyle, containerStyle } = styles;
         return (
-            <View>
+            <View style={containerStyle}>
                 <Card>
                     <CardSection style={{ flexDirection: 'column' }}>
                         <View style={buttonContainerStyle}>
@@ -43,6 +43,11 @@ const styles = {
     },
     welcomeTextStyle: {
         fontSize: 25
+    },
+    containerStyle: {
+        alignItems: 'center',
+        flex: 1,
+        flexDirection: 'column'
     }
 };
 

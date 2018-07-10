@@ -38,41 +38,44 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <Card>
-                <CardSection>
-                    <View style={styles.buttonContainerStyle}>
-                        <Image
-                            source={require('../images/B4SLogo.png')}
-                            size={{ width: 400, height: 200 }}
+            <View style={styles.containerStyle}>
+                <Card>
+                    <CardSection>
+                        <View style={styles.buttonContainerStyle}>
+                            <Image
+                                source={require('../images/B4SLogo.png')}
+                                size={{ width: 400, height: 200 }}
+                            />
+                        </View>
+                    </CardSection>
+
+                    <CardSection>
+                        <Input
+                            placeholder='email@email.com'
+                            autoCorrect={false}
+                            autoCapitalize={"none"}
+                            onChangeText={value => this.props.emailChanged(value) }
+                            value={this.props.email}
                         />
-                    </View>
-                </CardSection>
+                    </CardSection>
 
-                <CardSection>
-                    <Input
-                        placeholder='email@email.com'
-                        autoCorrect={false}
-                        autoCapitalize={"none"}
-                        onChangeText={value => this.props.emailChanged(value) }
-                        value={this.props.email}
-                    />
-                </CardSection>
+                    <CardSection>
+                        <Input
+                            placeholder='password'
+                            secureTextEntry={true}
+                            onChangeText={value => this.props.passwordChanged(value) }
+                            onSubmitEditing={this.onButtonPress.bind(this)}
+                            value={this.props.password}
+                        />
+                    </CardSection>
 
-                <CardSection>
-                    <Input
-                        placeholder='password'
-                        secureTextEntry={true}
-                        onChangeText={value => this.props.passwordChanged(value) }
-                        value={this.props.password}
-                    />
-                </CardSection>
+                    {this.renderError()}
 
-                {this.renderError()}
-
-                <CardSection>
-                    {this.renderButton()}
-                </CardSection>
-            </Card>
+                    <CardSection>
+                        {this.renderButton()}
+                    </CardSection>
+                </Card>
+            </View>
         );
     }
 
@@ -87,6 +90,11 @@ const styles = {
         fontSize: 20,
         alignSelf: 'center',
         color: 'red'
+    },
+    containerStyle: {
+        alignItems: 'center',
+        flex: 1,
+        flexDirection: 'row'
     }
 };
 
