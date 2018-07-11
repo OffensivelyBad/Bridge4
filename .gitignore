@@ -57,3 +57,4 @@ buck-out/
 
 #sensitive data
 firebaseconfig.js
+fbconfig.js
