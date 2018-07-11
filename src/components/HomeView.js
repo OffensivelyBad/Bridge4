@@ -14,7 +14,7 @@ class HomeView extends Component {
         return (
             <View style={containerStyle}>
                 <Card>
-                    <CardSection style={{ flexDirection: 'column' }}>
+                    <CardSection>
                         <View style={buttonContainerStyle}>
                             <Text style={welcomeTextStyle}>Hello, Donald!</Text>
                             <Image
@@ -23,13 +23,10 @@ class HomeView extends Component {
                             />
                         </View>
                     </CardSection>
-                </Card>
-
-                <Card>
                     <CardSection>
-                        <Button onPress={this.onClockButtonPressed.bind(this)}>
-                            Clock In
-                        </Button>
+                            <Button onPress={this.onClockButtonPressed.bind(this)}>
+                                Clock In
+                            </Button>
                     </CardSection>
                 </Card>
             </View>
@@ -39,6 +36,7 @@ class HomeView extends Component {
 
 const styles = {
     buttonContainerStyle: {
+        flex: 1,
         alignItems: 'center'
     },
     welcomeTextStyle: {
@@ -47,7 +45,7 @@ const styles = {
     containerStyle: {
         alignItems: 'center',
         flex: 1,
-        flexDirection: 'column'
+        flexDirection: 'row'
     }
 };
 
