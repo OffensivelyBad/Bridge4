@@ -29,7 +29,7 @@ export const loginUser = ({ email, password }) => {
 
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(user => loginUserSuccess(dispatch, user))
-            .catch(() => createUser({dispatch, email, password}));
+            .catch(() => loginUserFail(dispatch));
     };
 };
 
@@ -40,28 +40,6 @@ export const logoutUser = () => {
         firebase.auth().signOut()
             .then(logoutUserSuccess());
     }
-}
-
-const createUser = ({ dispatch, email, password }) => {
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(user => createUserDBEntry(dispatch, user))
-        .catch(() => loginUserFail(dispatch));
-}
-
-const createUserDBEntry = (dispatch, user) => {
-    const { currentUser } = firebase.auth();
-    const name = 'Shawn';
-    const phone = '666-6666';
-    const shift = '';
-    const userID = currentUser.uid;
-
-    console.log(`creating db entry: ${name}, ${phone}, ${shift}, ${userID}`);
-
-    firebase.database().ref('/users/')
-        .push({ userID, name, phone, shift })
-        .then(() => {
-            dispatch(() => loginUserSuccess(dispatch, user));
-        });
 }
 
 const loginUserFail = (dispatch) => {

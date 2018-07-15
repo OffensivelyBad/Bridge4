@@ -5,7 +5,7 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import { clockedIn, clockedOut } from '../actions';
 import { Button } from './common';
 
-const testing = false;
+const testing = true;
 
 class QRScanView extends Component {
 
