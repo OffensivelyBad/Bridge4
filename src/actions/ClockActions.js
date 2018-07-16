@@ -7,7 +7,6 @@ import {
 
 export const clockedIn = ({ user, timestamp }) => {
     const { currentUser } = firebase.auth();
-    console.log(currentUser.uid);
 
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}`)
@@ -24,8 +23,14 @@ export const clockedIn = ({ user, timestamp }) => {
 export const clockedOut = ({ user, timestamp }) => {
     const { currentUser } = firebase.auth();
 
-    return {
-        type: CLOCK_OUT,
-        payload: { user, timestamp }
+    return (dispatch) => {
+        firebase.database().ref(`/users/${currentUser.uid}`)
+            .update({ clockedIn: false })
+            .then(() => {
+                dispatch({
+                    type: CLOCK_OUT,
+                    payload: { user, timestamp }
+                });
+            });
     }
 }

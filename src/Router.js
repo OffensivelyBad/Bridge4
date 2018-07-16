@@ -29,6 +29,8 @@ class RouterComponent extends Component {
                             key="qrScanView"
                             component={QRScanView}
                             title="Scan QR Code"
+                            back
+                            backTitle="Home"
                         />
                     </Scene>
                 </Scene>

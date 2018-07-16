@@ -6,3 +6,4 @@ export const LOGIN_USER = 'login_user';
 export const CLOCK_IN = 'clock_in';
 export const CLOCK_OUT = 'clock_out';
 export const LOGOUT_USER = 'logout_user';
+export const USER_FETCH_SUCCESS = 'user_fetch_success';
