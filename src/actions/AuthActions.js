@@ -45,15 +45,13 @@ export const logoutUser = () => {
 
 const getUserDetails = (dispatch) => {
     const { currentUser } = firebase.auth();
-    return () => {
-        firebase.database().ref(`/users/${currentUser.uid}`)
-            .once('value', snapshot => {
-                dispatch({ 
-                    type: USER_FETCH_SUCCESS,
-                    payload: snapshot.val()
-                });
+    firebase.database().ref(`/users/${currentUser.uid}`)
+        .once('value', snapshot => {
+            dispatch({ 
+                type: USER_FETCH_SUCCESS,
+                payload: snapshot.val()
             });
-    }
+        });
 }
 
 const loginUserFail = (dispatch) => {

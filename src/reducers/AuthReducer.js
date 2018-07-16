@@ -4,8 +4,7 @@ import {
     LOGIN_USER,
     LOGIN_USER_FAIL,
     LOGIN_USER_SUCCESS,
-    LOGOUT_USER,
-    USER_FETCH_SUCCESS
+    LOGOUT_USER
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -13,8 +12,7 @@ const INITIAL_STATE = {
     password: '',
     user: null,
     error: '',
-    loading: false,
-    userDetails: {}
+    loading: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -34,8 +32,6 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, loading: true, error: '' }
         case LOGOUT_USER:
             return state;
-        case USER_FETCH_SUCCESS:
-            return { ...state, userDetails: action.payload }
         default:
             return state;
     }
