@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Card, CardSection, Button } from './common';
 
@@ -7,6 +8,14 @@ class HomeView extends Component {
 
     onClockButtonPressed() {
         Actions.qrScanView();
+    }
+
+    getButtonTitle() {
+        var buttonTitle = 'Clock In';
+        if (this.props.clockedIn) {
+            buttonTitle = 'Clock Out';
+        }
+        return buttonTitle;
     }
 
     render() {
@@ -25,7 +34,7 @@ class HomeView extends Component {
                     </CardSection>
                     <CardSection>
                             <Button onPress={this.onClockButtonPressed.bind(this)}>
-                                Clock In
+                                {this.getButtonTitle()}
                             </Button>
                     </CardSection>
                 </Card>
@@ -49,4 +58,9 @@ const styles = {
     }
 };
 
-export default HomeView;
+const mapStateToProps = state => {
+    const { clockedIn } = state.user;
+    return { clockedIn };
+}
+
+export default connect(mapStateToProps)(HomeView);

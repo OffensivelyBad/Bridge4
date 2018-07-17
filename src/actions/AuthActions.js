@@ -6,9 +6,9 @@ import {
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAIL,
     LOGIN_USER,
-    LOGOUT_USER,
-    USER_FETCH_SUCCESS
+    LOGOUT_USER
 } from './types';
+import { getUserDetails } from './UserActions';
 
 export const emailChanged = (text) => {
     return {
@@ -41,17 +41,6 @@ export const logoutUser = () => {
         firebase.auth().signOut()
             .then(logoutUserSuccess());
     }
-}
-
-const getUserDetails = (dispatch) => {
-    const { currentUser } = firebase.auth();
-    firebase.database().ref(`/users/${currentUser.uid}`)
-        .once('value', snapshot => {
-            dispatch({ 
-                type: USER_FETCH_SUCCESS,
-                payload: snapshot.val()
-            });
-        });
 }
 
 const loginUserFail = (dispatch) => {

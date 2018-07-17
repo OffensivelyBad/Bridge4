@@ -4,6 +4,7 @@ import {
     CLOCK_IN, 
     CLOCK_OUT
 } from './types';
+import { getUserDetails } from './UserActions';
 
 export const clockedIn = ({ user, timestamp }) => {
     const { currentUser } = firebase.auth();
@@ -12,10 +13,7 @@ export const clockedIn = ({ user, timestamp }) => {
         firebase.database().ref(`/users/${currentUser.uid}`)
             .update({ clockedIn: true })
             .then(() => {
-                dispatch({
-                    type: CLOCK_IN,
-                    payload: { user, timestamp }
-                });
+                clockIn(dispatch);
             });
     }
 }
@@ -27,10 +25,25 @@ export const clockedOut = ({ user, timestamp }) => {
         firebase.database().ref(`/users/${currentUser.uid}`)
             .update({ clockedIn: false })
             .then(() => {
-                dispatch({
-                    type: CLOCK_OUT,
-                    payload: { user, timestamp }
-                });
+                clockOut(dispatch, user, timestamp);
             });
     }
+}
+
+const clockIn = (dispatch, user, timestamp) => {
+    getUserDetails(dispatch);
+    dispatch({
+        type: CLOCK_IN,
+        payload: { user, timestamp }
+    });
+    Actions.pop();
+}
+
+const clockOut = (dispatch, user, timestamp) => {
+    getUserDetails(dispatch);
+    dispatch({
+        type: CLOCK_OUT,
+        payload: { user, timestamp }
+    });
+    Actions.pop();
 }
