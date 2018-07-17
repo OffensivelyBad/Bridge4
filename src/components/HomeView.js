@@ -18,6 +18,14 @@ class HomeView extends Component {
         return buttonTitle;
     }
 
+    getWelcomeMessage() {
+        var message = 'Welcome';
+        if (this.props.name) {
+            message += `, ${this.props.name}!`;
+        }
+        return message;
+    }
+
     render() {
         const { buttonContainerStyle, welcomeTextStyle, containerStyle } = styles;
         return (
@@ -25,7 +33,7 @@ class HomeView extends Component {
                 <Card>
                     <CardSection>
                         <View style={buttonContainerStyle}>
-                            <Text style={welcomeTextStyle}>Hello, Donald!</Text>
+                            <Text style={welcomeTextStyle}>{this.getWelcomeMessage()}</Text>
                             <Image
                                 source={require('../images/CircleLogo.png')}
                                 size={{ width: 200, height: 200 }}
@@ -59,8 +67,8 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-    const { clockedIn } = state.user;
-    return { clockedIn };
+    const { clockedIn, name } = state.user;
+    return { clockedIn, name };
 }
 
 export default connect(mapStateToProps)(HomeView);
