@@ -10,10 +10,14 @@ export const clockedIn = ({ user, timestamp }) => {
     const { currentUser } = firebase.auth();
 
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}`)
-            .update({ clockedIn: true })
+        var ref = firebase.database().ref(`/users/${currentUser.uid}`);
+            ref.update({ clockedIn: true })
             .then(() => {
-                clockIn(dispatch);
+                var clockRef = ref.child('clocks');
+                clockRef.update({ lastClockIn: timestamp })
+                .then(() => {
+                    clockIn(dispatch);
+                });
             });
     }
 }
@@ -22,10 +26,14 @@ export const clockedOut = ({ user, timestamp }) => {
     const { currentUser } = firebase.auth();
 
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}`)
-            .update({ clockedIn: false })
+        var ref = firebase.database().ref(`/users/${currentUser.uid}`);
+            ref.update({ clockedIn: false })
             .then(() => {
-                clockOut(dispatch, user, timestamp);
+                var clockRef = ref.child('clocks');
+                clockRef.update({ lastClockOut: timestamp })
+                .then(() => {
+                    clockOut(dispatch, user, timestamp);
+                });
             });
     }
 }
